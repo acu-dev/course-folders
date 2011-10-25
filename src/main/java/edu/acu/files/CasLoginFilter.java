@@ -1,5 +1,5 @@
 
-package edu.acu.wip.xythos;
+package edu.acu.files;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.xythos.common.api.XythosException;

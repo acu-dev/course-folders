@@ -1,5 +1,5 @@
 
-package edu.acu.wip.xythos;
+package edu.acu.files;
 
 import java.util.List;
 import javax.persistence.EntityManager;
