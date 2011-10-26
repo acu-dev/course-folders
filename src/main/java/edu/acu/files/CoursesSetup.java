@@ -141,7 +141,7 @@ public class CoursesSetup {
 
 				// Get User
 				log.debug("Looking up user "+dropboxAction.getPerson().getEmailId());
-				UserBase user = PrincipalManager.findUser(dropboxAction.getPerson().getEmailId(), null);
+				UserBase user = PrincipalManager.findUser(dropboxAction.getPerson().getEmailId());
 				
 				// Get Master Course
 				log.debug("Determining the master course");
@@ -279,7 +279,7 @@ public class CoursesSetup {
 						dropboxAction.setCompletedTime(date);
 
 						// Commit ACU Model Changes
-						log.debug("Commiting the dropbox action as complete");
+						log.debug("Committing the dropbox action as complete");
 						em.getTransaction().commit();
 					}	
 				}
@@ -426,7 +426,7 @@ public class CoursesSetup {
 		String trashPath = coursePath + trashDirName;
 		try {
 			// Commit xythos changes (folders must exist before we can change their trashcans)
-			log.debug("Commiting changes to Xythos");
+			log.debug("Committing changes to Xythos");
 			adminContext.commitContext();
 
 
@@ -445,7 +445,7 @@ public class CoursesSetup {
 			}
 
 			// Commit xythos changes (folders must exist before we can change their trashcans)
-			log.debug("Commiting changes to Xythos");
+			log.debug("Committing changes to Xythos");
 			adminContext.commitContext();
 		} catch (XythosException e) {
 			log.error("Problem setting up course trashcan", e);
