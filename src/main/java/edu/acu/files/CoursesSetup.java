@@ -425,12 +425,12 @@ public class CoursesSetup {
 		// Setup trash
 		String trashPath = coursePath + trashDirName;
 		try {
-			// Commit xythos changes (folders must exist before we can change their trashcans)
-			log.debug("Committing changes to Xythos");
+			// Commit course folders (folders must exist before we can change their trashcans)
+			log.debug("Committing the course folders creation to Xythos");
 			adminContext.commitContext();
 
 
-			log.info("Setting course trashcan to: " + trashPath);
+			log.debug("Setting course trashcan to: " + trashPath);
 			courseDir.changeTrashcan(trashPath);
 			classInfoDir.changeTrashcan(trashPath);
 			groupsDir.changeTrashcan(trashPath);
@@ -440,12 +440,12 @@ public class CoursesSetup {
 			studentsDir.changeTrashcan(trashPath);
 
 			if (courseDir instanceof DirectoryEntry) {
-				log.info("Creating trashcan " + trashPath);
+				log.debug("Creating trashcan " + trashPath);
 				((DirectoryEntry)courseDir).createTrashCan(trashPath);
 			}
 
 			// Commit xythos changes (folders must exist before we can change their trashcans)
-			log.debug("Committing changes to Xythos");
+			log.debug("Committing the trashcan changes to Xythos");
 			adminContext.commitContext();
 		} catch (XythosException e) {
 			log.error("Problem setting up course trashcan", e);
