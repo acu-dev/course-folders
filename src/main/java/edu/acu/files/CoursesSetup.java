@@ -56,7 +56,7 @@ public class CoursesSetup {
 	/**
 	 * Common resources
 	 */
-	private static String usersDomain = "acu.du";
+	private static String usersDomain = "acu.edu";
 	private static VirtualServer vs = null;
 	private static Context adminContext = null;
 	private static FileSystemDirectory courseDir = null;

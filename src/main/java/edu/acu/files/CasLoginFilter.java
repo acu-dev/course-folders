@@ -30,9 +30,11 @@ import org.apache.log4j.Logger;
 public class CasLoginFilter implements Filter {
 	
 	/**
-	 * Custom logger will output to /usr/local/xythos/logs/cas_login.log
+	 * Custom logger will output to {xythos-base}/logs/cas_login.log
 	 */
 	public static Logger log = Logger.getLogger(CasLoginFilter.class);
+	
+	private static String usersDomain = "acu.edu";
 	
 	public void init(FilterConfig config){}
 	
@@ -42,8 +44,10 @@ public class CasLoginFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
 		String username = request.getRemoteUser();
-		request.getSession().setAttribute("edu.acu.wip.xythos.username", username);
 		log.debug("Found CAS username: "+username);
+		
+		// Store username for access log valve
+		request.getSession().setAttribute("edu.acu.wip.xythos.username", username);
 
 		// User is authenticated with CAS
 		if (username != null) {
@@ -51,7 +55,7 @@ public class CasLoginFilter implements Filter {
 			// Find the Xythos user
 			UserBase user = null;
 			try {
-				user = PrincipalManager.findUser(username, null);
+				user = PrincipalManager.findUser(username, usersDomain);
 			} catch (XythosException e) {
 				log.error("Problem finding user: "+username, e);
 			}
@@ -70,15 +74,13 @@ public class CasLoginFilter implements Filter {
 				
 				String sessionID = null;
 				try {
-					sessionID = SessionManager.findValidSession(user);
-					if (sessionID == null)
-						sessionID = SessionManager.createSession(user, request);
+					sessionID = SessionManager.createSession(user, request);
 				} catch (XythosException e) {
-					log.error("something bad happened: "+e);
+					log.error("Problem getting/creating the user session: "+e);
 				}
 				SessionManager.addSessionToResponse(request, response, sessionID);
-				ActionContext.getContext().put(XythosAction.USER_BASE, user); 
-				ActionContext.getContext().put(XythosAction.SESSION_ID, sessionID); 
+				ActionContext.getContext().put(XythosAction.USER_BASE, user);
+				ActionContext.getContext().put(XythosAction.SESSION_ID, sessionID);
 				ActionContext.getContext().put(XythosAction.SECURITY_TOKEN, WebuiUtil.CALC_SECURITY_TOKEN_BE_CAREFUL(sessionID));
 				String sToken = WebviewUtil.getSecurityToken(sessionID);
 
