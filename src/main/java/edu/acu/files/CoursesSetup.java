@@ -56,6 +56,7 @@ public class CoursesSetup {
 	/**
 	 * Common resources
 	 */
+	private static String usersDomain = "acu.du";
 	private static VirtualServer vs = null;
 	private static Context adminContext = null;
 	private static FileSystemDirectory courseDir = null;
@@ -66,7 +67,6 @@ public class CoursesSetup {
 	private static FileSystemDirectory profWorkDir = null;
 	private static FileSystemDirectory studentsDir = null;
 	private static FileSystemDirectory trashDir = null;
-	//private static EntityManager em = null;
 
 	/**
 	 * Main sets up the required resources and passes them to processActions().
@@ -139,9 +139,9 @@ public class CoursesSetup {
 						dropboxAction.getCourseRank().getRank()+" "+dropboxAction.getPerson().getEmailId()+" to "+
 						dropboxAction.getCourse().getCourseId());
 
-				// Get User
+				// Get User (if not found locally, gets from remote user model)
 				log.debug("Looking up user "+dropboxAction.getPerson().getEmailId());
-				UserBase user = PrincipalManager.findUser(dropboxAction.getPerson().getEmailId());
+				UserBase user = PrincipalManager.findUser(dropboxAction.getPerson().getEmailId(), usersDomain);
 				
 				// Get Master Course
 				log.debug("Determining the master course");
