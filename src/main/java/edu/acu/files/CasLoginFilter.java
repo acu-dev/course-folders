@@ -1,14 +1,11 @@
 
 package edu.acu.files;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.xythos.common.api.XythosException;
 import com.xythos.security.api.PrincipalManager;
 import com.xythos.security.api.SessionManager;
 import com.xythos.security.api.UserBase;
-import com.xythos.webui.WebuiUtil;
 import com.xythos.webview.WebviewUtil;
-import com.xythos.webview.XythosAction;
 import java.io.IOException;
 import java.net.URLEncoder;
 import javax.servlet.Filter;
@@ -62,7 +59,7 @@ public class CasLoginFilter implements Filter {
 
 			
 			if (user != null) {
-				log.debug("Found Xythos user: "+username);
+				log.debug("Found Xythos user: "+user);
 				
 				try {
 					if (AcuXythosUtil.isNewUser(user)){
@@ -78,14 +75,13 @@ public class CasLoginFilter implements Filter {
 				} catch (XythosException e) {
 					log.error("Problem getting/creating the user session: "+e);
 				}
+				
 				SessionManager.addSessionToResponse(request, response, sessionID);
-				ActionContext.getContext().put(XythosAction.USER_BASE, user);
-				ActionContext.getContext().put(XythosAction.SESSION_ID, sessionID);
-				ActionContext.getContext().put(XythosAction.SECURITY_TOKEN, WebuiUtil.CALC_SECURITY_TOKEN_BE_CAREFUL(sessionID));
 				String sToken = WebviewUtil.getSecurityToken(sessionID);
 
 				// Redirect the User
 				try {
+					log.debug("Redirecting user...");
 					String location = request.getParameter("location");
 					String vars = "?stk="+sToken;
 					if (location != null && !location.equals("")) {

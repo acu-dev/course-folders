@@ -226,11 +226,6 @@
 			<version>1.2.15</version>
 		</dependency>
 		<dependency>
-			<groupId>com.opensymphony</groupId>
-			<artifactId>xwork</artifactId>
-			<version>2.0.4</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.4</version>
