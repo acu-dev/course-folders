@@ -90,7 +90,7 @@ public class CoursesHandler {
 				log.debug("Using userID: " + userID);
 				UserBase student = null;
 				try {
-					student = PrincipalManager.findUser(userID, null);
+					student = PrincipalManager.findUser(userID, VirtualServer.getDefaultVirtualServer().getName());
 				} catch (XythosException e) {
 					log.error("Problem looking up user: " + userID, e);
 				}
@@ -245,7 +245,7 @@ public class CoursesHandler {
 			// Look up student's name
 			String studentName = null;
 			try {
-				UserBase student = PrincipalManager.findUser(userID, null);
+				UserBase student = PrincipalManager.findUser(userID, VirtualServer.getDefaultVirtualServer().getName());
 				if (student != null){
 					studentName = student.getDisplayName();
 					log.debug("Student user found; student's name: " + studentName);
