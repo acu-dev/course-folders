@@ -5,7 +5,7 @@
 	<name>Course Folders</name>
 	<groupId>edu.acu.files</groupId>
 	<artifactId>course-folders</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4.1</version>
 	<description>Manages course folders and dropboxes in Xythos</description>
 	<url>https://github.com/acu-dev/course-folders</url>
 	<organization>
@@ -37,9 +37,9 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>downloads-maven-plugin</artifactId>
-				<version>0.2</version>
+				<version>0.5</version>
 				<configuration>
-					<description>Official ${project.name} build of the ${project.version} release</description>
+					<description>${project.name} build ${project.version}</description>
 					<override>true</override>
 					<includeAttached>true</includeAttached>
 				</configuration>
@@ -51,55 +51,6 @@
 						<phase>install</phase>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>0.2</version>
-				<configuration>
-					<message>Building site for ${project.version}</message>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<phase>site</phase>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-project-info-reports-plugin</artifactId>
-							<version>2.2</version>
-							<configuration>
-								<dependencyDetailsEnabled>true</dependencyDetailsEnabled>
-								<dependencyLocationsEnabled>true</dependencyLocationsEnabled>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>2.7</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-surefire-report-plugin</artifactId>
-							<version>2.6</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.6</version>
-						</plugin>
-					</reportPlugins>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -120,28 +71,6 @@
 						</manifest>
 					</archive>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -188,9 +117,18 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>acu-3rdp</id>
+			<id>3rdp</id>
 			<name>3rd Party Releases</name>
 			<url>https://source.acu.edu/mvn/content/repositories/3rdp</url>
+		</repository>
+		<repository>
+			<releases />
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>3rdp-private</id>
+			<name>3rd Party Releases</name>
+			<url>https://source.acu.edu/mvn/content/repositories/3rdp-private</url>
 		</repository>
 		<repository>
 			<releases />
@@ -223,7 +161,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<version>1.2.16</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -233,8 +171,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.3</version>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.2.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
