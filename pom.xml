@@ -5,7 +5,7 @@
 	<name>Course Folders</name>
 	<groupId>edu.acu.files</groupId>
 	<artifactId>course-folders</artifactId>
-	<version>1.4.1</version>
+	<version>1.4.2</version>
 	<description>Manages course folders and dropboxes in Xythos</description>
 	<url>https://github.com/acu-dev/course-folders</url>
 	<organization>
@@ -34,10 +34,10 @@
 	
 	<build>
 		<plugins>
-			<plugin>
+			<!-- github no longer provides this functionality <plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>downloads-maven-plugin</artifactId>
-				<version>0.5</version>
+				<version>0.6</version>
 				<configuration>
 					<description>${project.name} build ${project.version}</description>
 					<override>true</override>
@@ -51,7 +51,7 @@
 						<phase>install</phase>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -139,12 +139,16 @@
 			<name>JBoss Repository</name>
 			<url>https://source.acu.edu/mvn/content/repositories/repository.jboss.org</url>
 		</repository>
+                <repository>
+                    <id>java.net</id>
+                    <url>http://download.java.net/maven/2/</url>
+                </repository>
 	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>com.xythos</groupId>
 			<artifactId>xsscore</artifactId>
-			<version>7.2.96.1017</version>
+			<version>7.2.134.3035</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -155,7 +159,7 @@
 		<dependency>
 			<groupId>com.xythos</groupId>
 			<artifactId>webview</artifactId>
-			<version>7.2.96.1017</version>
+			<version>7.2.134.3035</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -188,13 +192,13 @@
 		<dependency>
 			<groupId>com.xythos</groupId>
 			<artifactId>webui</artifactId>
-			<version>7.2.96.1017</version>
+			<version>7.2.134.3035</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>edu.acu.wip</groupId>
 			<artifactId>acu-model</artifactId>
-			<version>1.4.6</version>
+			<version>1.4.7</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

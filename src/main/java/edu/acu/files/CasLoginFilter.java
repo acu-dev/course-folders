@@ -52,7 +52,7 @@ public class CasLoginFilter implements Filter {
 			// Find the Xythos user
 			UserBase user = null;
 			try {
-				user = PrincipalManager.findUser(username, usersDomain);
+				user = PrincipalManager.findUserFromLoginID(request, username);
 			} catch (XythosException e) {
 				log.error("Problem finding user: "+username, e);
 			}
