@@ -141,7 +141,10 @@ public class CoursesSetup {
 
 				// Get User (if not found locally, gets from remote user model)
 				log.debug("Looking up user "+dropboxAction.getPerson().getEmailId());
-				UserBase user = PrincipalManager.findUser(dropboxAction.getPerson().getEmailId(), usersDomain);
+				UserBase user = PrincipalManager.findUser(dropboxAction.getPerson().getEmailId(), vs.getName());
+                                if(user == null) {
+                                    log.error("Couldn't find user");
+                                }
 				
 				// Get Master Course
 				log.debug("Determining the master course");

@@ -5,7 +5,7 @@
 	<name>Course Folders</name>
 	<groupId>edu.acu.files</groupId>
 	<artifactId>course-folders</artifactId>
-	<version>1.4.2</version>
+	<version>1.4.3</version>
 	<description>Manages course folders and dropboxes in Xythos</description>
 	<url>https://github.com/acu-dev/course-folders</url>
 	<organization>

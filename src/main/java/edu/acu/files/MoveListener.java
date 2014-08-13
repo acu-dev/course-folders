@@ -51,7 +51,7 @@ public class MoveListener implements FileSystemEntryMovedListener {
 	 * @param moveContext
 	 * @param moveEvent
 	 */
-	public void fileSystemEntryMoved(Context moveContext, FileSystemEntryMovedEvent moveEvent) {
+	public void fileSystemEntryMoved(Context moveContext, FileSystemEntryMovedEvent moveEvent) throws XythosException {
 		
 		/**
 		 * Setup

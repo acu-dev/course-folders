@@ -38,7 +38,7 @@ public class CreateListener implements FileSystemEntryCreatedListener {
 	 * @param moveContext
 	 * @param createEvent
 	 */
-	public void fileSystemEntryCreated(Context createContext, FileSystemEntryCreatedEvent createEvent) {
+	public void fileSystemEntryCreated(Context createContext, FileSystemEntryCreatedEvent createEvent) throws XythosException {
 		log.info("** Entry Created: " + createEvent.getFileSystemEntryName() + " **");
 		log.info("Entry source class: "+createEvent.getFileSystemEntryClass().getName());
 		

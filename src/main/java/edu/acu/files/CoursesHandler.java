@@ -12,6 +12,7 @@ import com.xythos.storageServer.api.FileSystemEntry;
 import com.xythos.storageServer.api.FileSystemUtil;
 import com.xythos.storageServer.permissions.api.AccessControlEntry;
 import com.xythos.storageServer.permissions.api.DirectoryAccessControlEntry;
+import java.util.Arrays;
 import org.apache.log4j.Logger;
 
 /**
@@ -52,7 +53,7 @@ public class CoursesHandler {
 	 * @param adminContext
 	 * @param entry
 	 */
-	public static void handle(VirtualServer virtualServer, Context adminContext, FileSystemEntry entry, UserBase user) {
+	public static void handle(VirtualServer virtualServer, Context adminContext, FileSystemEntry entry, UserBase user) throws XythosException {
 
 		vs = virtualServer;
 		
@@ -135,7 +136,7 @@ public class CoursesHandler {
 	
 	
 
-	private static void returnHandler(Context adminContext, FileSystemEntry entry) {
+	private static void returnHandler(Context adminContext, FileSystemEntry entry) throws XythosException {
 		log.info("** Handling return entry: " + entry.getName() + " **");
 		
 		// Try to get student box
@@ -229,7 +230,7 @@ public class CoursesHandler {
 	
 	
 	
-	public static String getStudentBox(Context adminContext, String entryPath) {
+	public static String getStudentBox(Context adminContext, String entryPath) throws XythosException {
 		log.debug("Looking up the student box for: " + entryPath);
 		
 		// Break up the entry path into sections
@@ -248,6 +249,7 @@ public class CoursesHandler {
 				UserBase student = PrincipalManager.findUser(userID, VirtualServer.getDefaultVirtualServer().getName());
 				if (student != null){
 					studentName = student.getDisplayName();
+                                        
 					log.debug("Student user found; student's name: " + studentName);
 				} else {
 					log.info("Unable to find user " + userID + " in system; is userID correct?");
@@ -258,7 +260,22 @@ public class CoursesHandler {
 			}
 			
 			// Create student box path (ex: '/courses/<course_name>/<student_dir>/cjs00c - Chris Gibbs')
-			String studentBoxPath = "/"+entryParts[1]+"/"+entryParts[2]+"/"+studentsDir+userID+" - "+studentName;
+                        
+                        String studentBoxesPath = "/"+entryParts[1]+"/"+entryParts[2]+"/"+studentsDir;
+                        FileSystemDirectory studentBoxesDirectory = (FileSystemDirectory)FileSystem.findEntry(vs, studentBoxesPath, false, adminContext);
+                        FileSystemEntry[] studentBoxes = studentBoxesDirectory.getDirectoryContents(false, true);
+                        log.info("studentBoxes list: " + Arrays.toString(studentBoxes));
+                        String studentBoxPath = null;
+                        for(FileSystemEntry studentBox : studentBoxes) {
+                            String thisPath = studentBox.getName();
+                            String[] thisPathParts = thisPath.split("/");
+                            if(thisPathParts[4].startsWith(userID)) {
+                                studentBoxPath = thisPath;
+                            }
+                        }
+                        
+			//String studentBoxPath = "/"+entryParts[1]+"/"+entryParts[2]+"/"+studentsDir+userID+" - "+studentName;
+                        
 			log.debug("Using student box path: " + studentBoxPath);
 			
 			// Look up student box
@@ -268,7 +285,7 @@ public class CoursesHandler {
 					log.debug("Path is good; returning it");
 					return studentBoxPath;
 				} else {
-					log.info("Unable to locate student box; is the student a member of this class?");
+					log.info("Unable to locate student box; is the student a member of this class? " + studentBoxPath);
 					return null;
 				}
 			} catch (XythosException e) {
